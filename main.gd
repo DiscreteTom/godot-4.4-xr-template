@@ -45,6 +45,6 @@ func _ready():
 		# Change our main viewport to output to the HMD
 		viewport.use_xr = true
 		
-		# switch_to_ar()
+		switch_to_ar()
 	else:
 		print("OpenXR not initialized, please check if your headset is connected")
