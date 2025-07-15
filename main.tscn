@@ -1,10 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbvmuhvb57kqq"]
+[gd_scene load_steps=10 format=3 uid="uid://cbvmuhvb57kqq"]
 
 [ext_resource type="Script" uid="uid://hwn8cr2syml" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://de5hx0l65fxkq" path="res://addons/godot-xr-tools/objects/pickable.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://nryr6arklfp6" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="6_7mycd"]
 
 [sub_resource type="Environment" id="Environment_ig7tw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mycd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_272bh"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_ig7tw")
@@ -20,13 +27,42 @@ tracker = &"left_hand"
 
 [node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("2_h2yge")]
 
+[node name="FunctionPickup" parent="XROrigin3D/LeftHand" instance=ExtResource("3_lquwl")]
+
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
 [node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("3_1bvp3")]
 
+[node name="FunctionPickup" parent="XROrigin3D/RightHand" instance=ExtResource("3_lquwl")]
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ig7tw")
+
+[node name="XRToolsPickable" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.5)
+collision_layer = 4
+gravity_scale = 0.0
+script = ExtResource("5_lquwl")
+second_hand_grab = 1
+metadata/_custom_type_script = "uid://de5hx0l65fxkq"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsPickable"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_7mycd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsPickable"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_272bh")
+
+[node name="GrabPointHandLeft" type="Marker3D" parent="XRToolsPickable"]
+script = ExtResource("6_7mycd")
+metadata/_custom_type_script = "uid://nryr6arklfp6"
+
+[node name="GrabPointHandRight" type="Marker3D" parent="XRToolsPickable"]
+script = ExtResource("6_7mycd")
+hand = 1
+metadata/_custom_type_script = "uid://nryr6arklfp6"
