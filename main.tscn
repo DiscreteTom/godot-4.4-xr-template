@@ -1,10 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cbvmuhvb57kqq"]
 
 [ext_resource type="Script" uid="uid://hwn8cr2syml" path="res://main.gd" id="1_ig7tw"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_1bvp3"]
 
 [sub_resource type="Environment" id="Environment_ig7tw"]
 
@@ -20,17 +18,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("BoxMesh_ig7tw")
+[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("2_h2yge")]
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_0xm2m")
+[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("3_1bvp3")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
