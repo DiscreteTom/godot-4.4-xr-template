@@ -7,7 +7,6 @@ extends Node3D
 func switch_to_ar() -> bool:
 	if xr_interface:
 		var modes = xr_interface.get_supported_environment_blend_modes()
-		print(modes)
 		if XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND in modes:
 			xr_interface.environment_blend_mode = XRInterface.XR_ENV_BLEND_MODE_ALPHA_BLEND
 			viewport.transparent_bg = true
