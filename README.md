@@ -7,3 +7,5 @@ This template includes:
 - [Read controller inputs and send haptics feedback to controller.](./scripts/controller_io.gd)
 - AR mode (video see through) enabled by default. You can modify this in [main.gd](./scripts/main.gd).
 - A pickable (grabable) object with 0 gravity. You can pick it up and throw it around.
+
+[Godot official documentation.](https://docs.godotengine.org/en/stable/tutorials/xr/index.html)
